@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data><Environment>
+  <id>test_import</id>
+  <name>test_import</name>
+  <objectType>81</objectType>
+  <appName>test_import</appName>
+  <variableValue>1</variableValue>
+  <type>0</type>
+  <valueRange>1</valueRange>
+  <lastModify>2018-06-29 06:58:02.428</lastModify>
+  <description>test_import</description>
+  <needModify>0</needModify>
+</Environment></data>

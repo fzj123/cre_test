@@ -1,5 +1,5 @@
 import time
-
+from model.path import dir_path
 from page_object.base import Base
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
@@ -14,7 +14,7 @@ class SysEnvironmentPage(Base, LoginPage):
     button_import_loc = (By.XPATH, '//*[@id="tab-list-content"]/div/div[1]/div[1]/div/label[4]')
     button_exprot_loc = (By.XPATH, '//*[@id="tab-list-content"]/div/div[1]/div[1]/div/label[5]')
     #应用名，变量名，描述，
-    select_appname_loc = (By.XPATH, '//*[@id="s2id_app-name-select"]/a/span[1]')
+    select_appname_loc = (By.ID, 'app-name-select')
     input_variablename_loc = (By.XPATH, '//*[@id="tab-list-content"]/div/div[1]/div[2]/ul/li[2]/div/input')
     input_describe_loc = (By.XPATH, '//*[@id="tab-list-content"]/div/div[1]/div[2]/ul/li[3]/div/input')
     #检索按钮
@@ -44,6 +44,8 @@ class SysEnvironmentPage(Base, LoginPage):
     #导入页面
     import_file_loc = (By.XPATH, '//*[@id="import-file"]')
     import_button_loc = (By.ID, 'sure-create-btn')
+    #导入页面上传按钮
+    test_import_upload_button_loc = (By.XPATH, '//*[@id="import-file"]')
 
 
     #断言-新增环境变量页面
@@ -67,6 +69,13 @@ class SysEnvironmentPage(Base, LoginPage):
     test_import_buttot_sure_loc = (By.CSS_SELECTOR, '.bootbox-body')
     #断言-导入按钮弹出框-显示文本
     test_import_button_loc = (By.XPATH, '//*[@id="common-import-dialog"]/div/div/div[1]/h4')
+    #断言-导入覆盖记录按钮
+    test_import_buttot_chooseno_loc = (By.XPATH, '//*[@id="form-horizontal import-xml-form"]/div/div[1]/div[2]/div/label[2]')
+    test_import_buttot_chooseyes_loc = (By.XPATH, '//*[@id="form-horizontal import-xml-form"]/div/div[1]/div[2]/div/label[1]')
+    #断言-应用名检索
+    test_appname_query_loc = (By.XPATH, '//*[@id="tab-list-content"]/div/div[2]/div/div[2]/div[1]/table/tbody/tr[1]/td[2]/div/span')
+    #断言-描述检索
+    test_describe_query_loc = (By.XPATH, '//*[@id="tab-list-content"]/div/div[2]/div/div[2]/div[1]/table/tbody/tr/td[6]/div/span')
 
     #点击新增按钮
     def button_new_click(self):
@@ -85,8 +94,8 @@ class SysEnvironmentPage(Base, LoginPage):
         self.find_element(*self.button_exprot_loc).click()
     #应用名下拉列表框选择
     def select_appname(self):
-        app = Select(self.find_element(*self.select_appname_loc))
-        return app
+        return Select(self.find_element(*self.select_appname_loc))
+
     #输入变量名
     def imput_variablename(self, text):
         self.find_element(*self.input_variablename_loc).send_keys(text)
@@ -147,18 +156,19 @@ class SysEnvironmentPage(Base, LoginPage):
         checkboxs = self.find_elements(*self.checkbox_one_loc)
         return checkboxs
 
-    #导入文件
-    def import_file(self, path):
-        self.find_element(*self.import_file_loc).send_keys(path)
     #导入-确定按钮点击
     def import_button(self):
         self.find_element(*self.import_button_loc).click()
+    #导入-定位上传按钮，添加本地文件
+    def test_import_upload_button(self):
+        path = dir_path() + '/file/Environment.xml'
+        log().info(path)
+        self.find_element(*self.test_import_upload_button_loc).send_keys(path)
 
     #获取提示框
     def prompt_box(self):
         text = self.switch_alert().text
         return text
-
 
     #新增环境变量页面——确定
     def new_environment(self, varname, appname, variablevalue, value_range, description):
@@ -187,10 +197,11 @@ class SysEnvironmentPage(Base, LoginPage):
         self.input_new_surecreate()
 
     #导入
-    def import_environment(self, path):
+    def import_environment(self):
         self.button_import_click()
-        self.import_file(path)
+        self.test_import_upload_button()
         self.import_button()
+
 
     #选择应用名检索
     def query_appname(self):
@@ -250,7 +261,22 @@ class SysEnvironmentPage(Base, LoginPage):
     def test_import_button_error(self):
         text = self.find_element(*self.test_import_button_loc).text
         return text
-    #断言-导入页面，提示“请选择文件”
+    #断言-导入页面，提示“请选择文件”,“上传成功”
     def test_import_buttot_sure_error(self):
         text = self.find_element(*self.test_import_buttot_sure_loc).text
+        return text
+    # 断言-导入覆盖记录按钮
+    def test_import_buttot_chooseyes_error(self):
+        text = self.find_element(*self.test_import_buttot_chooseyes_loc).text
+        return text
+    def test_import_buttot_chooseno_error(self):
+        text = self.find_element(*self.test_import_buttot_chooseno_loc).text
+        return text
+    # 断言-应用名检索
+    def test_appname_query_error(self):
+        text = self.find_element(*self.test_appname_query_loc).text
+        return text
+    # 断言-描述检索
+    def test_describe_query_error(self):
+        text = self.find_element(*self.test_describe_query_loc).text
         return text
