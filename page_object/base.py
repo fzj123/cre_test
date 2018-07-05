@@ -3,6 +3,9 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 
+from model.logs import log
+
+
 class Base(object):
 
     def __init__(self, driver, base_url="http://100.0.10.209"):
@@ -15,9 +18,27 @@ class Base(object):
         self.driver.get(url_new)
         sleep(3)
 
-    #用 By 定位元素
-    def find_element(self, *loc):
-        return self.driver.find_element(*loc)
+    # #定位元素
+    # def find_element(self, *loc):
+    #     return self.driver.find_element(*loc)
+    # #d多个页面
+    # def find_elements(self, *loc):
+    #     return self.driver.find_elements(*loc)
+
+
+    #显性等待-获取页面单个元素
+    def find_element(self, loc):
+        try:
+            element = WebDriverWait(self.driver, 20, 0.5).until(EC.presence_of_element_located(loc))
+            return element
+        except Exception as e:
+            log().exception('Timeout waiting for')
+            log().exception(e)
+    #显性等待-获取页面多个元素
+    def find_elements(self, loc):
+        element = WebDriverWait(self.driver, 20, 0.5).until(EC.presence_of_all_elements_located(loc))
+        return element
+
 
     #多表单切换,切换到iframe
     def iframe(self, iframeid):
@@ -27,18 +48,10 @@ class Base(object):
     def js_script(self, js):
         return self.driver.execute_script(js)
 
-    #通过type获取checkbox
-    def find_elements(self, *loc):
-        return self.driver.find_elements(*loc)
-
     #获取弹出框
     def switch_alert(self):
         alert = self.driver.switch_to_alert()
         return alert
-
-    #显性等待-定位到就返回WebElement
-    def driver_wait(self, *loc):
-        return WebDriverWait(self.driver, 20, 0.5).until(EC.presence_of_element_located(*loc))
 
     #鼠标-悬停
     def mouse_hover(self, *loc):
@@ -53,3 +66,4 @@ class Base(object):
     #获取所有窗口句柄
     def all_window_handle(self):
         return self.driver.window_handles
+

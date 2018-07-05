@@ -9,4 +9,15 @@ def dir_path():
 
     return base
 
+'''
+def test():
+    curpath = os.path.dirname(os.path.realpath(__file__))
+    print(curpath)
+    casepath = os.path.join(curpath, "test_case")
+    print(casepath)
+    reportpath = os.path.join(curpath, "report")
+    print(reportpath)
 
+if __name__ == '__main__':
+    test()
+'''

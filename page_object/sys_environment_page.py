@@ -79,64 +79,64 @@ class SysEnvironmentPage(Base, LoginPage):
 
     #点击新增按钮
     def button_new_click(self):
-        self.find_element(*self.button_new_loc).click()
+        self.find_element(self.button_new_loc).click()
     #点击编辑按钮
     def button_editor_click(self):
-        self.find_element(*self.button_editor_loc).click()
+        self.find_element(self.button_editor_loc).click()
     #点击删除按钮
     def butto_delect_click(self):
-        self.find_element(*self.button_delect_loc).click()
+        self.find_element(self.button_delect_loc).click()
     #点击导入按钮
     def button_import_click(self):
-        self.find_element(*self.button_import_loc).click()
+        self.find_element(self.button_import_loc).click()
     #点击导出按钮
     def button_export_click(self):
-        self.find_element(*self.button_exprot_loc).click()
+        self.find_element(self.button_exprot_loc).click()
     #应用名下拉列表框选择
     def select_appname(self):
-        return Select(self.find_element(*self.select_appname_loc))
+        return Select(self.find_element(self.select_appname_loc))
 
     #输入变量名
     def imput_variablename(self, text):
-        self.find_element(*self.input_variablename_loc).send_keys(text)
+        self.find_element(self.input_variablename_loc).send_keys(text)
     #清空变量名
     def clear_variablename(self):
-        self.find_element(*self.input_variablename_loc).clear()
+        self.find_element(self.input_variablename_loc).clear()
     #输入描述
     def input_describe(self,text):
-        self.find_element(*self.input_describe_loc).send_keys(text)
+        self.find_element(self.input_describe_loc).send_keys(text)
     #清空描述
     def clear_describe(self):
-        self.find_element(*self.input_describe_loc).clear()
+        self.find_element(self.input_describe_loc).clear()
     #点击检索按钮
     def button_query_click(self):
-        self.find_element(*self.button_query_loc).click()
+        self.find_element(self.button_query_loc).click()
 
     #新增环境变量，变量名，应用名，变量值，取值范围，描述，确认，取消
     def input_new_variablename(self, text):
-        self.find_element(*self.input_new_variablename_loc).send_keys(text)
+        self.find_element(self.input_new_variablename_loc).send_keys(text)
     def input_new_app(self, text):
-        self.find_element(*self.input_new_app_loc).send_keys(text)
+        self.find_element(self.input_new_app_loc).send_keys(text)
     def input_new_variablevalue(self, text):
-        self.find_element(*self.input_new_variablevalue_loc).send_keys(text)
+        self.find_element(self.input_new_variablevalue_loc).send_keys(text)
     def input_new_value_range(self, text):
-        self.find_element(*self.input_new_value_range_loc).send_keys(text)
+        self.find_element(self.input_new_value_range_loc).send_keys(text)
     def input_new_description(self, text):
-        self.find_element(*self.input_new_description_loc).send_keys(text)
+        self.find_element(self.input_new_description_loc).send_keys(text)
     def input_new_surecreate(self):
-        self.find_element(*self.input_new_surecreate_loc).click()
+        self.find_element(self.input_new_surecreate_loc).click()
     def input_new_cancle(self):
-        self.find_element(*self.input_new_cancle_loc).click()
+        self.find_element(self.input_new_cancle_loc).click()
 
     #编辑环境变量页面，清空应用名，变量值，取值范围，描述
     def clear_new_app(self):
-        self.find_element(*self.input_new_app_loc).clear()
+        self.find_element(self.input_new_app_loc).clear()
     def clear_new_variablevalue(self):
-        self.find_element(*self.input_new_variablevalue_loc).clear()
+        self.find_element(self.input_new_variablevalue_loc).clear()
     def clear_new_value_range(self):
-        self.find_element(*self.input_new_value_range_loc).clear()
+        self.find_element(self.input_new_value_range_loc).clear()
     def clear_new_description(self):
-        self.find_element(*self.input_new_description_loc).clear()
+        self.find_element(self.input_new_description_loc).clear()
 
     #删除环境变量，点击确定按钮
     def delete_sure_button(self):
@@ -145,25 +145,25 @@ class SysEnvironmentPage(Base, LoginPage):
 
     #表单复选框全选
     def checkbox_value(self):
-        return self.find_element(*self.checkbox_value_loc).click()
+        return self.find_element(self.checkbox_value_loc).click()
 
     #表单中的复选框，某一行
     def checkbox_one(self):
-        return self.find_elements(*self.checkbox_one_loc)[1].click()
+        return self.find_elements(self.checkbox_one_loc)[1].click()
 
     #返回表单中所有的复选框
     def button_checkbox(self):
-        checkboxs = self.find_elements(*self.checkbox_one_loc)
+        checkboxs = self.find_elements(self.checkbox_one_loc)
         return checkboxs
 
     #导入-确定按钮点击
     def import_button(self):
-        self.find_element(*self.import_button_loc).click()
+        self.find_element(self.import_button_loc).click()
     #导入-定位上传按钮，添加本地文件
     def test_import_upload_button(self):
         path = dir_path() + '/file/Environment.xml'
         log().info(path)
-        self.find_element(*self.test_import_upload_button_loc).send_keys(path)
+        self.find_element(self.test_import_upload_button_loc).send_keys(path)
 
     #获取提示框
     def prompt_box(self):
@@ -219,64 +219,64 @@ class SysEnvironmentPage(Base, LoginPage):
 
     #断言-新增环境变量页面
     def env_new_page_error(self):
-        text = self.find_element(*self.new_env_page_loc).text
+        text = self.find_element(self.new_env_page_loc).text
         return text
     #断言-变量名为空
     def env_new_page_variable_error(self):
-        text = self.find_element(*self.new_env_variable_loc).get_attribute('data-original-title')
+        text = self.find_element(self.new_env_variable_loc).get_attribute('data-original-title')
         return text
     #断言-新增保存成功
     def env_new_page_save_error(self):
-        text = self.find_element(*self.env_new_page_save_loc).text
+        text = self.find_element(self.env_new_page_save_loc).text
         return text
     #断言-获取弹出框（点击编辑按钮，提示“请选择一条记录”）
     def env_new_page_editor_click_error(self):
-        text = self.find_element(*self.env_new_page_editor_click__loc).text
+        text = self.find_element(self.env_new_page_editor_click__loc).text
         return text
     #断言-显示编辑页面
     def env_editor_page_successful_error(self):
-        text = self.find_element(*self.env_editor_page_successful_loc).text
+        text = self.find_element(self.env_editor_page_successful_loc).text
         return text
     #断言-修改编辑页面后点击“保存”按钮，保存成功
     def test_newpage_editor_save_error(self):
-        text = self.find_element(*self.test_newpage_editor_save_loc).text
+        text = self.find_element(self.test_newpage_editor_save_loc).text
         return text
     #点击“删除”按钮,有提示“请选择一条记录”
     def test_delete_button_error(self):
-        text = self.find_element(*self.test_delete_button_loc).text
+        text = self.find_element(self.test_delete_button_loc).text
         return text
     # 断言,获取弹出框（确定要删除吗?）
     def test_delete_button_more_error(self):
-        text = self.find_element(*self.env_new_page_editor_click__loc).text
+        text = self.find_element(self.env_new_page_editor_click__loc).text
         return text
     # 断言-表单显示暂无内容
     def show_no_content_error(self):
-        text = self.find_element(*self.show_no_content_loc).text
+        text = self.find_element(self.show_no_content_loc).text
         return text
     # 断言-导出按钮弹出框-显示文本
     def test_export_button_all_error(self):
-        text = self.find_element(*self.test_export_button_all_loc).text
+        text = self.find_element(self.test_export_button_all_loc).text
         return text
     # 断言-导入按钮弹出框-显示文本
     def test_import_button_error(self):
-        text = self.find_element(*self.test_import_button_loc).text
+        text = self.find_element(self.test_import_button_loc).text
         return text
     #断言-导入页面，提示“请选择文件”,“上传成功”
     def test_import_buttot_sure_error(self):
-        text = self.find_element(*self.test_import_buttot_sure_loc).text
+        text = self.find_element(self.test_import_buttot_sure_loc).text
         return text
     # 断言-导入覆盖记录按钮
     def test_import_buttot_chooseyes_error(self):
-        text = self.find_element(*self.test_import_buttot_chooseyes_loc).text
+        text = self.find_element(self.test_import_buttot_chooseyes_loc).text
         return text
     def test_import_buttot_chooseno_error(self):
-        text = self.find_element(*self.test_import_buttot_chooseno_loc).text
+        text = self.find_element(self.test_import_buttot_chooseno_loc).text
         return text
     # 断言-应用名检索
     def test_appname_query_error(self):
-        text = self.find_element(*self.test_appname_query_loc).text
+        text = self.find_element(self.test_appname_query_loc).text
         return text
     # 断言-描述检索
     def test_describe_query_error(self):
-        text = self.find_element(*self.test_describe_query_loc).text
+        text = self.find_element(self.test_describe_query_loc).text
         return text

@@ -1,26 +1,39 @@
 import unittest
-import time
-from HTMLTestRunner_PY3 import HTMLTestRunner
-from model.path import dir_path
+
+from model.logs import log
 from model.screenshots import img_dir
-
-#指定测试用例为当前文件夹下的test_case目录
-
-path = dir_path()
+from BeautifulReport import BeautifulReport
+import os
+from tomorrow import threads
+# 获取路径
+curpath = os.path.dirname(os.path.realpath(__file__))
+casepath = os.path.join(curpath, 'test_case', 'management')
+reportpath = os.path.join(curpath, "report")
 img_path = img_dir()
-#test_dir = './test_case/'
-test_dir = './test_case/test'
-test_report = path +'/report'
-discover_test = unittest.defaultTestLoader.discover(test_dir, pattern = '*_case.py')
+
+if not os.path.exists(casepath):
+    os.mkdir(casepath)
+
+if not os.path.exists(reportpath):
+    os.mkdir(reportpath)
+
+def add_case(case_path=casepath, rule="*case.py"):
+    '''加载所有的测试用例'''
+    discover = unittest.defaultTestLoader.discover(case_path,
+    pattern=rule,
+    top_level_dir=None)
+    return discover
+
+@threads(3)
+def run(test_suit):
+
+    result = BeautifulReport(test_suit)
+    result.report(filename='TestReport.html', description='测试报告', log_path='report')
 
 if __name__ == "__main__":
-
-    now = time.strftime("%Y-%m-%d %H_%M_%S")
-    filename = test_report + '/' + now + 'result.html'
-    fp = open(filename, 'wb')
-    runner = HTMLTestRunner(stream=fp,
-                            title='测试报告',
-                            description="运行环境：windows 7, Chrome")
-    runner.run(discover_test)
-
-    fp.close()
+    # 用例集合
+    cases = add_case()
+    log().info(cases)
+    for i in cases:
+        log().info(i)
+        run(i)

@@ -11,26 +11,26 @@ class LoginTestPage(Base):
     login_slider_text_loc = (By.XPATH, '//*[@id="slider2"]/div/div[1]')
 
     def login_username(self,text):
-        self.find_element(*self.login_username_text_loc).send_keys(text)
+        self.find_element(self.login_username_text_loc).send_keys(text)
 
     def clear_username(self):
-        self.find_element(*self.login_username_text_loc).clear()
+        self.find_element(self.login_username_text_loc).clear()
 
     def login_password(self,text):
-        self.find_element(*self.login_password_text_loc).send_keys(text)
+        self.find_element(self.login_password_text_loc).send_keys(text)
 
     def clear_password(self):
-        self.find_element(*self.login_password_text_loc).clear()
+        self.find_element(self.login_password_text_loc).clear()
 
     def login_button(self):
-        self.find_element(*self.login_button_loc).click()
+        self.find_element(self.login_button_loc).click()
 
     def login_slider(self):
         for index in range(5):
             try:
-                source = self.find_element(*self.login_slider_loc)
+                source = self.find_element(self.login_slider_loc)
                 ActionChains(self.driver).drag_and_drop_by_offset(source, 300, 0).perform()
-                texts = self.find_element(*self.login_slider_text_loc).text
+                texts = self.find_element(self.login_slider_text_loc).text
 
                 if texts.startswith('通过验证'):
                     print('成功滑动')
